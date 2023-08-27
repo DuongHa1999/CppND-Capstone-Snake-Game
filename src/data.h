@@ -17,8 +17,8 @@ class Data
 {
 
 public:
-    Data();
-    ~Data();
+    Data(){};
+    ~Data(){};
     std::map<string, int> ReadGameHistoryMap();
     void WriteGameHistoryMapSorted(std::map<string, int> aux_map);
     void WriteGameHistoryMap(std::map<string, int> users_map);

@@ -13,13 +13,15 @@
 #include <bits/stdc++.h>
 #include <functional>
 #include <set>
+#include <iostream>
 
 void Menu::SaveUser(User *user)
 {
-    Data *newdm = new Data();
+//     Data *newdm = new Data();
+    std::unique_ptr<Data> data = std::make_unique<Data>();
     std::map<string, int> actual_user_map;
     actual_user_map.insert(std::make_pair(user->GetUserName(), user->GetUserScore()));
-    newdm->WriteGameHistoryMap(actual_user_map);
+    data->WriteGameHistoryMap(actual_user_map);
 }
 
 void Menu::UserManual()
@@ -75,7 +77,7 @@ void Menu::Run()
 
     while (option != 5)
     {
-        std::cin.clear();
+        std::cout << "\033[2J\033[1;1H";
         std::cout << "\n ======================================== \n";
         std::cout <<   "|     Snake game management program      |\n";
         std::cout <<   " ======================================== \n";
@@ -87,7 +89,7 @@ void Menu::Run()
         std::cout <<   "'========================================'\n";
         std::cout <<   "|      ==>";
         std::cin >> option;
-        if(option != 1 && option != 2 && option != 3 && option != 4)
+        if(option != 1 && option != 2 && option != 3 && option != 4 && option != 5)
         {
             std::cout << "Error: This option is not available, please re-enter!";
         }
@@ -97,10 +99,11 @@ void Menu::Run()
             {
                 case 1: /* Play */
                 {
-                    User *newuser = new User();
-                    newuser->SetUserName();
+//                     User *newuser = new User();
+                    user_ = std::make_unique<User>();
+                    user_->SetUserName();
                     this->Play();
-                    this->SaveUser(newuser);
+                    this->SaveUser(user_.get());
                     break;
                 }
                 case 2: /* Game level */
@@ -126,34 +129,10 @@ void Menu::Run()
             }
             if(option != 5)
             {
-                system("pause"); /* Wait screen */
+                std::cout << "==>Press Enter to continues...!\n";
+                getchar(); /* Wait screen */
+                getchar();
             }
         }
-    }
-}
-
-void Menu::ManageNewUser(User *user)
-{
-
-    user->SetUserName();
-}
-
-void Menu::DumpDataToFile(User *user)
-{
-
-    std::cout << "call the function " << __FUNCTION__ << std::endl;
-
-    std::cout << "user ::  " << user->GetUserName() << " :: " << user->GetUserScore() << " :: " << user->GetUserGameTime() << std::endl;
-}
-
-void Menu::temp_print_vector_of_object_pointers(vector<User *> v_user)
-{
-
-    int v_user_size = v_user.size();
-
-    for (int i = 0; i < v_user_size; i++)
-    {
-        std::cout << "----------------------------------------------------------------" << std::endl;
-        std::cout << "user vector::  " << v_user[i]->GetUserName() << std::endl;
     }
 }

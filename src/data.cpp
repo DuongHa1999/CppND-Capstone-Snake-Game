@@ -16,8 +16,6 @@ using std::vector;
 
 //-------------------------------------------------------------------------------------------//
 
-Data::Data(){};
-Data::~Data(){};
 std::map<string, int> Data::ReadGameHistoryMap()
 {
 
