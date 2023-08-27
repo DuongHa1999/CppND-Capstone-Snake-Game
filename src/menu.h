@@ -8,18 +8,18 @@ class Menu
 {
 
 public:
-    Menu()
-    {
+    Menu(){};
 
-        std::cout << " " << std::endl;
-    };
-
+    void SaveUser(User *user);
+    void Play();
+    void History();
+    void UserManual();
     void ManageNewUser(User *user);
-    bool InitManager();
+    void Run();
     void DumpDataToFile(User *user);
     void RetriveDataFromFile();
     void temp_print_vector_of_object_pointers(vector<User *> v);
-    static bool quit_game_flag;
+    static bool  = false;
 
 private:
     User *user;
