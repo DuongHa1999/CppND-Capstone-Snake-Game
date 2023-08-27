@@ -17,7 +17,7 @@
 
 void Menu::SaveUser(User *user)
 {
-//     Data *newdm = new Data();
+    //     Data *newdm = new Data();
     std::unique_ptr<Data> data = std::make_unique<Data>();
     std::map<string, int> actual_user_map;
     actual_user_map.insert(std::make_pair(user->GetUserName(), user->GetUserScore()));
@@ -26,15 +26,15 @@ void Menu::SaveUser(User *user)
 
 void Menu::UserManual()
 {
-        std::cout << "\n ================================ \n";
-        std::cout <<   "|     Snake game User Manual     |\n";
-        std::cout <<   " ================================ \n";
-        std::cout <<   "|       Up    : Go up            |\n";
-        std::cout <<   "|       Down  : Go down          |\n";
-        std::cout <<   "|       Left  : Turn left        |\n";
-        std::cout <<   "|       Right : Turn right       |\n";
-        std::cout <<   "|       Esc   : Back             |\n";
-        std::cout <<   "'================================'\n";
+    std::cout << "\n ================================ \n";
+    std::cout <<   "|     Snake game User Manual     |\n";
+    std::cout <<   " ================================ \n";
+    std::cout <<   "|       Up    : Go up            |\n";
+    std::cout <<   "|       Down  : Go down          |\n";
+    std::cout <<   "|       Left  : Turn left        |\n";
+    std::cout <<   "|       Right : Turn right       |\n";
+    std::cout <<   "|       Esc   : Back             |\n";
+    std::cout <<   "'================================'\n";
 }
 
 void Menu::History()
@@ -89,7 +89,7 @@ void Menu::Run()
         std::cout <<   "'========================================'\n";
         std::cout <<   "|      ==>";
         std::cin >> option;
-        if(option != 1 && option != 2 && option != 3 && option != 4 && option != 5)
+        if (option != 1 && option != 2 && option != 3 && option != 4 && option != 5)
         {
             std::cout << "Error: This option is not available, please re-enter!";
         }
@@ -97,37 +97,37 @@ void Menu::Run()
         {
             switch (option)
             {
-                case 1: /* Play */
-                {
-//                     User *newuser = new User();
-                    user_ = std::make_unique<User>();
-                    user_->SetUserName();
-                    this->Play();
-                    this->SaveUser(user_.get());
-                    break;
-                }
-                case 2: /* Game level */
-                {
-//                     this.GameLevel();
-                    break;
-               }
-                case 3: /* User manual */
-                {
-                    this->UserManual();
-                    break;
-                }
-                case 4: /* History */
-                {
-                    this->History();
-                    break;
-                }
-                default: /* Exit */
-                {
-                    std::cout << "==>The program has stopped, thank you for using!\n";
-                    break;
-                }
+            case 1: /* Play */
+            {
+                //                     User *newuser = new User();
+                user_ = std::make_unique<User>();
+                user_->SetUserName();
+                this->Play();
+                this->SaveUser(user_.get());
+                break;
             }
-            if(option != 5)
+            case 2: /* Game level */
+            {
+                //                     this.GameLevel();
+                break;
+            }
+            case 3: /* User manual */
+            {
+                this->UserManual();
+                break;
+            }
+            case 4: /* History */
+            {
+                this->History();
+                break;
+            }
+            default: /* Exit */
+            {
+                std::cout << "==>The program has stopped, thank you for using!\n";
+                break;
+            }
+            }
+            if (option != 5)
             {
                 std::cout << "==>Press Enter to continues...!\n";
                 getchar(); /* Wait screen */

@@ -40,7 +40,7 @@ std::map<string, int> Data::ReadGameHistoryMap()
         users_map.insert(std::make_pair(user_name, user_score));
       }
 
-      //return v_user_name;
+      // return v_user_name;
     }
     filestream.close();
     std::cout << "finishing reading file ..." << std::endl;
@@ -72,9 +72,10 @@ void Data::WriteGameHistoryMapSorted(std::map<string, int> aux_map)
     typedef std::function<bool(std::pair<std::string, int>, std::pair<std::string, int>)> Comparator;
 
     Comparator compFunctor =
-        [](std::pair<std::string, int> elem1, std::pair<std::string, int> elem2) {
-          return elem1.second > elem2.second;
-        };
+        [](std::pair<std::string, int> elem1, std::pair<std::string, int> elem2)
+    {
+      return elem1.second > elem2.second;
+    };
 
     // Declaring a set that will store the pairs using above comparision logic
     std::set<std::pair<std::string, int>, Comparator> sorted_map(
@@ -131,9 +132,10 @@ void Data::DisplaySortedUsers(std::map<string, int> aux_map)
   typedef std::function<bool(std::pair<std::string, int>, std::pair<std::string, int>)> Comparator;
 
   Comparator compFunctor =
-      [](std::pair<std::string, int> elem1, std::pair<std::string, int> elem2) {
-        return elem1.second > elem2.second;
-      };
+      [](std::pair<std::string, int> elem1, std::pair<std::string, int> elem2)
+  {
+    return elem1.second > elem2.second;
+  };
 
   // Declaring a set that will store the pairs using above comparision logic
   std::set<std::pair<std::string, int>, Comparator> sorted_map(

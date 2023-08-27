@@ -28,5 +28,5 @@ private:
     int user_score;
     string user_game_time;
     float user_snake_head_travel_distance;
-    //vector<User*> v_user;
+    // vector<User*> v_user;
 };
