@@ -30,10 +30,10 @@ void Menu::UserManual()
         std::cout <<   "|     Snake game User Manual     |\n";
         std::cout <<   " ================================ \n";
         std::cout <<   "|       Up    : Go up            |\n";
-        std::cout <<   "|       Down  : G0 down          |\n";
+        std::cout <<   "|       Down  : Go down          |\n";
         std::cout <<   "|       Left  : Turn left        |\n";
         std::cout <<   "|       Right : Turn right       |\n";
-        std::cout <<   "|       Esc   : Exit game        |\n";
+        std::cout <<   "|       Esc   : Back             |\n";
         std::cout <<   "'================================'\n";
 }
 
