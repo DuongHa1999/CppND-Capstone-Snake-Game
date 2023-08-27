@@ -1,3 +1,6 @@
+#ifndef DATA_H
+#define DATA_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,9 +12,17 @@
 #include <bits/stdc++.h>
 #include <functional>
 #include <set>
+#include "user.h"
 
 using std::string;
 using std::vector;
+
+typedef struct
+{
+    string user_name;
+    int user_score;
+    string user_time;
+} user_data;
 
 class Data
 {
@@ -19,8 +30,11 @@ class Data
 public:
     Data(){};
     ~Data(){};
-    std::map<string, int> ReadGameHistoryMap();
-    void WriteGameHistoryMapSorted(std::map<string, int> aux_map);
-    void WriteGameHistoryMap(std::map<string, int> users_map);
-    void DisplaySortedUsers(std::map<string, int> aux_map);
+    vector<user_data> ReadGameHistory();
+    void WriteGameHistory(User *user);
+    void DisplaySortedUsers(vector<user_data> data_list);
+private:
+    // vector<user_data> user_list;
 };
+
+#endif

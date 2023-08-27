@@ -18,10 +18,12 @@
 void Menu::SaveUser(User *user)
 {
     //     Data *newdm = new Data();
+    // std::unique_ptr<Data> data = std::make_unique<Data>();
+    // std::map<string, int> actual_user_map;
+    // actual_user_map.insert(std::make_pair(user->GetUserName(), user->GetUserScore()));
+    // data->WriteGameHistoryMap(actual_user_map);
     std::unique_ptr<Data> data = std::make_unique<Data>();
-    std::map<string, int> actual_user_map;
-    actual_user_map.insert(std::make_pair(user->GetUserName(), user->GetUserScore()));
-    data->WriteGameHistoryMap(actual_user_map);
+    data->WriteGameHistoryMap(user);
 }
 
 void Menu::UserManual()
@@ -37,18 +39,19 @@ void Menu::UserManual()
     std::cout <<   "'================================'\n";
 }
 
+void Menu::GameLevel()
+{
+
+}
+
 void Menu::History()
 {
     Data data;
-    std::map<string, int> recorded_users;
-    recorded_users = data.ReadGameHistoryMap();
-    if (recorded_users.size() > 0)
+    vector<user_data> game_history;
+    game_history = data.ReadGameHistory();
+    if (game_history.size() > 0)
     {
-        data.DisplaySortedUsers(recorded_users);
-    }
-    else
-    {
-        std::cout << "The history for this game does nor exist ...!" << std::endl;
+        data.DisplaySortedUsers(game_history);
     }
 }
 
@@ -99,16 +102,21 @@ void Menu::Run()
             {
             case 1: /* Play */
             {
-                //                     User *newuser = new User();
+                string name;
                 user_ = std::make_unique<User>();
-                user_->SetUserName();
+                std::cout << "\n ======================================== \n";
+                std::cout <<   "|                 Add User               |\n";
+                std::cout <<   " ======================================== \n";
+                std::cout <<   "|      ==>";
+                std::cin>>name;
+                user_->SetUserName(name);
                 this->Play();
                 this->SaveUser(user_.get());
                 break;
             }
             case 2: /* Game level */
             {
-                //                     this.GameLevel();
+                this->GameLevel();
                 break;
             }
             case 3: /* User manual */

@@ -1,3 +1,6 @@
+#ifndef USER_H
+#define USER_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,15 +21,14 @@ public:
     int GetUserScore();
     string GetUserGameTime();
 
-    void SetUserName();
-    void SetUserScore();
-    void SetUserGameTime();
-    float GetHeadDistance();
+    void SetUserName(string name);
+    void SetUserScore(int score);
+    void SetUserGameTime(string time);
 
 private:
-    string user_name;
-    int user_score;
-    string user_game_time;
-    float user_snake_head_travel_distance;
-    // vector<User*> v_user;
+    string name_;
+    int score_;
+    string time_;
 };
+
+#endif

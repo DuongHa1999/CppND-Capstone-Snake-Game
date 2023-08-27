@@ -1,3 +1,6 @@
+#ifndef MENU_H
+#define MENU_H
+
 #include <iostream>
 #include "user.h"
 #include <vector>
@@ -14,6 +17,7 @@ public:
 
     void SaveUser(User *user);
     void Play();
+    void GameLevel();
     void History();
     void UserManual();
     void ManageNewUser(User *user);
@@ -24,3 +28,5 @@ private:
     std::unique_ptr<User> user_;
     vector<User *> v_user;
 };
+
+#endif

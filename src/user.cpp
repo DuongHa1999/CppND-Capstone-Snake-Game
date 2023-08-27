@@ -7,59 +7,43 @@
 using std::string;
 using std::vector;
 
-User::User(string user_name, int user_score, string user_game_time)
+User::User(string name, int score, string time)
 {
-
-    std::cout << "--- New User --- " << std::endl;
-
-    this->user_name = user_name;
-    this->user_score = user_score;
-    this->user_game_time = user_game_time;
+    this->name_ = name;
+    this->score_ = score;
+    this->time_ = time;
 }
 
 string User::GetUserName()
 {
 
-    return user_name;
+    return name_;
 }
 
 int User::GetUserScore()
 {
-    return user_score;
+    return score_;
 }
 
 string User::GetUserGameTime()
 {
-    return user_game_time;
+    return time_;
 }
 
-void User::SetUserGameTime()
+void User::SetUserGameTime(string time)
 {
-    // current date/time on local machine
-    time_t now = time(0);
-    // convert to char
-    char *dt = ctime(&now);
-    user_game_time = dt;
-    std::cout << "game time ::: " << user_game_time;
+//     time_t now = time(0);
+//     char *dt = ctime(&now);
+    this->time_ = time;
 }
 
-void User::SetUserName()
+void User::SetUserName(string name)
 {
-
-    string user_name;
-    std::cout << "User NAME :::  ";
-    std::cin >> user_name;
-    this->user_name = user_name;
+    this->name_ = name;
 }
 
-void User::SetUserScore()
+void User::SetUserScore(int score)
 {
-    int user_score;
-    std::cout << "User game score :::  ";
-    std::cin >> user_score;
-    this->user_score = user_score;
+    this->score_ = score;
 }
 
-float User::GetHeadDistance()
-{
-}
