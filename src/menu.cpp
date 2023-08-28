@@ -14,16 +14,13 @@
 #include <functional>
 #include <set>
 #include <iostream>
+#include <ctime>
+#include "user.h"
 
 void Menu::SaveUser(User *user)
 {
-    //     Data *newdm = new Data();
-    // std::unique_ptr<Data> data = std::make_unique<Data>();
-    // std::map<string, int> actual_user_map;
-    // actual_user_map.insert(std::make_pair(user->GetUserName(), user->GetUserScore()));
-    // data->WriteGameHistoryMap(actual_user_map);
     std::unique_ptr<Data> data = std::make_unique<Data>();
-    data->WriteGameHistoryMap(user);
+    data->WriteGameHistory(user);
 }
 
 void Menu::UserManual()
@@ -57,6 +54,8 @@ void Menu::History()
 
 void Menu::Play()
 {
+    time_t now = time(0);
+    char *dt = ctime(&now);
     constexpr std::size_t kFramesPerSecond{60};
     constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
     constexpr std::size_t kScreenWidth{640};
@@ -68,15 +67,21 @@ void Menu::Play()
     Controller controller;
     Game game(kGridWidth, kGridHeight);
     game.Run(controller, renderer, kMsPerFrame);
-    std::cout << "Game has terminated successfully!\n";
-    std::cout << "Score: " << game.GetScore() << "\n";
-    std::cout << "Size: " << game.GetSize() << "\n";
+    std::cout << "\n ======================================== \n";
+    std::cout <<   "|                Game Over               |\n";
+    std::cout <<   " ======================================== \n";
+    std::cout <<   "    Game has terminated successfully!\n";
+    std::cout <<   "    Score: " << game.GetScore() << "\n";
+    std::cout <<   "    Size : " << game.GetSize() << "\n";
+    std::cout <<   "'========================================'\n";
+    user_->SetUserScore(game.GetScore());
+    user_->SetUserGameTime(dt);
 }
 
 void Menu::Run()
 {
     int option = 0;
-    // Menu menu;
+    vector<user_data> user_list;
 
     while (option != 5)
     {

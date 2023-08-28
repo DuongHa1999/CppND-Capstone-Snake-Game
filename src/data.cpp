@@ -23,7 +23,6 @@ user_data MakeUserData(string name, int score, string time)
 
 vector<user_data> Data::ReadGameHistory()
 {
-
     string line;
     string user_name;
     int user_score;
@@ -61,17 +60,18 @@ vector<user_data> Data::ReadGameHistory()
 
 void Data::WriteGameHistory(User *user)
 {
-    std::ofstream dataFile;
+    const std::string gameDataDirectory{"../history"};
 
-    dataFile.open("game_history.txt", std::ios::in | std::ios::out | std::ios::app);
-    if (!dataFile.is_open())
+    std::ofstream filestream(gameDataDirectory + "/" + "game_history.txt", std::ios::in | std::ios::out | std::ios::app);
+
+    if (!filestream.is_open())
     {
         std::cout << " ==>Error: Can not open the file!" << std::endl;
     }
     else
     {
-        dataFile << user->GetUserName() << " " << user->GetUserScore() << " " << user->GetUserGameTime() << "\n";
-        dataFile.close();
+        filestream << user->GetUserName() << " " << user->GetUserScore() << " " << user->GetUserGameTime() << "\n";
+        filestream.close();
     }
 }
 

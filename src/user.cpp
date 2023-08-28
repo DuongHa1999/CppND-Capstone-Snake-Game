@@ -1,7 +1,6 @@
 #include "user.h"
 #include <iostream>
 #include <string>
-#include <ctime>
 #include <vector>
 
 using std::string;
@@ -32,8 +31,6 @@ string User::GetUserGameTime()
 
 void User::SetUserGameTime(string time)
 {
-//     time_t now = time(0);
-//     char *dt = ctime(&now);
     this->time_ = time;
 }
 
