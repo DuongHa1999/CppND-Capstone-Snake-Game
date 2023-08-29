@@ -35,7 +35,7 @@ void Controller::HandleInput(bool &running, Snake &snake) const {
           ChangeDirection(snake, Snake::Direction::kRight,
                           Snake::Direction::kLeft);
           break;
-        case SDLK_ESCAPE:
+        case SDLK_END:
           std::cout << "QUIT" << std::endl;
           running = false;
       }

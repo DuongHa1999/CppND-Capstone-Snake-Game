@@ -32,7 +32,7 @@ void Menu::UserManual()
     std::cout <<   "|       Down  : Go down          |\n";
     std::cout <<   "|       Left  : Turn left        |\n";
     std::cout <<   "|       Right : Turn right       |\n";
-    std::cout <<   "|       Esc   : Back             |\n";
+    std::cout <<   "|       End   : Back             |\n";
     std::cout <<   "'================================'\n";
 }
 

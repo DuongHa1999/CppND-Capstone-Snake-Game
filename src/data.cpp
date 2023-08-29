@@ -10,6 +10,8 @@
 #include <functional>
 #include <set>
 #include "data.h"
+#include <iomanip>
+#include <map>
 
 using std::string;
 using std::vector;
@@ -25,8 +27,13 @@ vector<user_data> Data::ReadGameHistory()
 {
     string line;
     string user_name;
-    int user_score;
+    int user_score;//Mon Aug 28 16:13:26 2023
     string user_time;
+    string date;
+    string month;
+    string day;
+    string time;
+    string year;
     vector<user_data> user_list;
     const std::string gameDataDirectory{"../history"};
 
@@ -38,8 +45,9 @@ vector<user_data> Data::ReadGameHistory()
         {
 
             std::istringstream linestream(line);
-            while (linestream >> user_name >> user_score >> user_time)
+            while (linestream >> user_name >> user_score >> date >> month >> day >> time >> year)
             {
+                user_time = time + " " + month + "/" + day + "/" + year;
                 user_list.push_back(MakeUserData(user_name,user_score,user_time));
             }
         }
@@ -91,13 +99,21 @@ void Data::DisplaySortedUsers(vector<user_data> data_list)
         data_list.begin(), data_list.end(), compFunctor);
 
     int i = 1;
+        std::cout << "\n ======================================== \n";
+        std::cout <<   "|              Game History              |\n";
+        std::cout <<   " ======================================== \n";
+        std::cout <<   "| User | Score |          Time           |\n";
+        std::cout <<   " ======================================== \n";
     for (auto element : sorted_map)
     {
-        std::cout << i << ". user : " << element.user_name << ", score : " << element.user_score << ", time : " << element.user_time << std::endl;
+        std::cout << std::setw(3) << element.user_name;
+        std::cout << std::setw(8) << element.user_score;
+        std::cout << std::setw(19) << element.user_time << std::endl;
         i++;
         if (i > 10)
             break;
     }
+        std::cout <<   "'========================================'\n";
 }
 
 //-------------------------------------------------------------------------------------------//
