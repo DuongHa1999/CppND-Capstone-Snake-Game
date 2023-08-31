@@ -8,16 +8,26 @@ The Capstone Project gives you a chance to integrate what you've learned through
 
 In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
 
-## New feature
-* MENU
-  * Start game
-  * Chose level/wall/not wall
-  * Speed
-  * Name
-  * Pause game
-  * End game
-* Boom, star random appear
-* End game when eat the boom or wall appear a window show score/star and can chose continue game with 3 hearts.
+## The Capstone project (Snake-Game) meets following project requirements:
+
+### A. Introduction:
+The Game interfeces with the player by simplified MAIN MENU. On the main menu the user is allowed to perform 3 different choices:
+1. Start the new game which can be abandoned by pressing the END key. Before starting the game, the player will be asked for the player name. When the game is finished the name, the score and time are saved on the disk (game_history.txt).
+2. Check history of the game (sorted list of the 10 best playeres is displayed).
+3. Intruction of game.
+4. Quit the game (terminates the game without possibility for return).
+
+On the main menu the player can press keys 1,2,3,4 and 5. Other configuration is not allowed and suppressed.
+
+
+### B. Criterias which support the Capstone Project:
+
+1. Loops, Functions --> The project code is OOP with the security mechanism in order to avoid fail states
+2. I/O --> Application read and write the file. data.h class
+3. The project accepts user input and processes the input --> User Main Manu is the interactive interface with the game. menu.h class
+4. The project uses Object Oriented Programming techniques. --> The Capstopn project supports OOP technique and uses its dedicated principles.
+5. Classes use appropriate access specifiers for class members. --> The classes uses dedicted class members to access class memebers. Class objects communicates with memebes by setters and getters.
+6. The project use smartpointer instead of raw pointer.
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
