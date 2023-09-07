@@ -7,27 +7,37 @@
 #include "renderer.h"
 #include "snake.h"
 
-class Game {
- public:
-  Game(std::size_t grid_width, std::size_t grid_height);
-  void Run(Controller const &controller, Renderer &renderer,
-           std::size_t target_frame_duration);
-  int GetScore() const;
-  int GetSize() const;
+class Game
+{
+public:
+    Game(std::size_t grid_width, std::size_t grid_height);
+    void Run(Controller const &controller, Renderer *renderer,
+             std::size_t target_frame_duration);
+    int GetScore() const;
+    int GetSize() const;
+    void TriggerPause();
+    friend class Controller;
 
- private:
-  Snake snake;
-  SDL_Point food;
+protected:
+    bool _wall; // wall around the game screen
 
-  std::random_device dev;
-  std::mt19937 engine;
-  std::uniform_int_distribution<int> random_w;
-  std::uniform_int_distribution<int> random_h;
+private:
+    Snake snake;
+    SDL_Point food;
+    bool _paused;
+    bool _poisoned;
 
-  int score{0};
+    std::random_device dev;
+    std::mt19937 engine;
+    std::uniform_int_distribution<int> random_w;
+    std::uniform_int_distribution<int> random_h;
 
-  void PlaceFood();
-  void Update();
+    int score{0};
+
+    void PlaceFood();
+    void Update(Renderer *renderer);
+    void Pause();
+    void Resume();
 };
 
 #endif

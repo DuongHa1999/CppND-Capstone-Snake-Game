@@ -3,13 +3,17 @@
 
 #include "snake.h"
 
-class Controller {
- public:
-  void HandleInput(bool &running, Snake &snake) const;
+class Game;
 
- private:
-  void ChangeDirection(Snake &snake, Snake::Direction input,
-                       Snake::Direction opposite) const;
+class Controller
+{
+public:
+    void HandleInput(bool &running, Snake &snake, Game &game) const;
+    void OppositeDirection(Snake::Direction input);
+
+private:
+    void ChangeDirection(Snake &snake, Snake::Direction input,
+                         Snake::Direction opposite, bool &poison) const;
 };
 
 #endif
