@@ -7,11 +7,11 @@ void Snake::Update(bool *wall)
     SDL_Point prev_cell{
         static_cast<int>(head_x),
         static_cast<int>(
-            head_y)}; // We first capture the head's cell before updating.
+            head_y)};  // We first capture the head's cell before updating.
     UpdateHead(wall);
     SDL_Point current_cell{
         static_cast<int>(head_x),
-        static_cast<int>(head_y)}; // Capture the head's cell after updating.
+        static_cast<int>(head_y)};  // Capture the head's cell after updating.
 
     // Update all of the body vector items if the snake head has moved to a new
     // cell.
@@ -48,11 +48,10 @@ void Snake::UpdateHead(bool *wall)
         // check if snake hit the wall
         if (head_x > 32 || head_y > 32 || head_x < 0 || head_y < 0)
         {
-            std::cout << "you hit the wall" << std::endl;
             alive = false;
             // show a dialog box
-            std::string msgText{"Score: " + std::to_string(*_score) + "\n Size: " + std::to_string(size)};
-            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "You died!", msgText.c_str(), NULL);
+            std::string msgText{"Score: " + std::to_string(*score_) + "\nSize: " + std::to_string(size)};
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", msgText.c_str(), NULL);
         }
     }
     else
@@ -85,8 +84,8 @@ void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell)
         if (current_head_cell.x == item.x && current_head_cell.y == item.y)
         {
             alive = false;
-            std::string msgText{"Score: " + std::to_string(*_score) + "\n Size: " + std::to_string(size)};
-            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "You died!", msgText.c_str(), NULL);
+            std::string msgText{"Score: " + std::to_string(*score_) + "\nSize: " + std::to_string(size)};
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", msgText.c_str(), NULL);
         }
     }
 }

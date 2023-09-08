@@ -30,9 +30,8 @@ void Game::Run(Controller const &controller, Renderer *renderer,
 
         // Input, Update, Render - the main game loop.
         controller.HandleInput(running, snake, *this);
-        // pass renderer's address
         Update(renderer);
-        renderer->Render(snake, food, &_wall, &_poisoned);
+        renderer->Render(snake, food, &wall_, &poison_);
 
         frame_end = SDL_GetTicks();
 
@@ -59,11 +58,10 @@ void Game::Run(Controller const &controller, Renderer *renderer,
     }
 }
 
-void TimerThread(bool *poisoned)
+void TimerThread(bool *option)
 {
     std::this_thread::sleep_for(std::chrono::seconds(5));
-    // get back to normal after 5 seconds
-    *poisoned = false;
+    *option = false;
 }
 
 void Game::PlaceFood()
@@ -86,18 +84,18 @@ void Game::PlaceFood()
 
 void Game::Update(Renderer *renderer)
 {
-    if (this->_paused == true)
+    if (this->pause_ == true)
     {
-        // update window title
         renderer->SetPauseTitle();
         return;
     };
-    // std::cout << "update called : " << this->_paused << std::endl;
-    if (!snake.alive)
-        return;
 
-    // send address of boolean _wall;
-    snake.Update(&_wall);
+    if (!snake.alive)
+    {
+        return;
+    }
+
+    snake.Update(&wall_);
 
     int new_x = static_cast<int>(snake.head_x);
     int new_y = static_cast<int>(snake.head_y);
@@ -113,34 +111,56 @@ void Game::Update(Renderer *renderer)
         PlaceFood();
         // Grow snake and increase speed.
         snake.GrowBody();
-        snake.speed += 0.02;
-        if (dis(gen) <= 2)
+
+        if(score > 20 || level_ == game_level::Difficult)
         {
-            _poisoned = true;
+            wall_ = true;
+            if (dis(gen) <= 2)
+            {
+                poison_ = true;
+                // resolves 5 seconds later
+                std::thread poisonTimer(TimerThread, &poison_);
+                poisonTimer.detach();
+            }
+        }
+        else
+        {
+            SpeedUp();
+        }
+        if (dis(gen) <= 3)
+        {
+            slow_ = true;
+            SpeedDown();
             // resolves 5 seconds later
-            std::thread poisonTimer(TimerThread, &_poisoned);
-            poisonTimer.detach();
+            std::thread slowTimer(TimerThread, &slow_);
+            slowTimer.detach();
         }
     }
 }
 
-// pause the game if it's already running
-// resume otherwise
-void Game::TriggerPause()
+void Game::Wall()
 {
-    this->_paused ? Resume() : Pause();
+    this->wall_ ? this->wall_ = false : this->wall_ = true;
 }
 
-// pause the game
 void Game::Pause()
 {
-    this->_paused = true;
+    this->pause_ ? this->pause_ = false : this->pause_ = true;
 }
 
-// resume the game
-void Game::Resume()
+void Game::SpeedUp()
 {
-    this->_paused = false;
+    snake.speed += 0.01;
+}
+
+void Game::SpeedDown()
+{
+    snake.speed = 0.05;
+}
+
+void Game::SetGameLevel(game_level level)
+{
+    level_ = level;
 }
 
 int Game::GetScore() const { return score; }

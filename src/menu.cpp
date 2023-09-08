@@ -25,20 +25,66 @@ void Menu::SaveUser(User *user)
 
 void Menu::UserManual()
 {
-    std::cout << "\n ================================ \n";
-    std::cout <<   "|     Snake game User Manual     |\n";
-    std::cout <<   " ================================ \n";
-    std::cout <<   "|       Up    : Go up            |\n";
-    std::cout <<   "|       Down  : Go down          |\n";
-    std::cout <<   "|       Left  : Turn left        |\n";
-    std::cout <<   "|       Right : Turn right       |\n";
-    std::cout <<   "|       End   : Back             |\n";
-    std::cout <<   "'================================'\n";
+    std::cout << "\n ======================================== \n";
+    std::cout <<   "|         Snake game User Manual         |\n";
+    std::cout <<   " ======================================== \n";
+    std::cout <<   "|        Up        : Go up               |\n";
+    std::cout <<   "|        Down      : Go down             |\n";
+    std::cout <<   "|        Left      : Turn left           |\n";
+    std::cout <<   "|        Right     : Turn right          |\n";
+    std::cout <<   "|        w         : turn on/off wall    |\n";
+    std::cout <<   "|        Fn+Insert : Pause               |\n";
+    std::cout <<   "|        End       : Back                |\n";
+    std::cout <<   "'========================================'\n";
 }
 
 void Menu::GameLevel()
 {
+    int level = 0;
 
+    while (level != 4)
+    {
+        std::cout << "\033[2J\033[1;1H";
+        std::cout << "\n ======================================== \n";
+        std::cout <<   "|                Game Level              |\n";
+        std::cout <<   " ======================================== \n";
+        std::cout <<   "|         Enter 1: Easy                  |\n";
+        std::cout <<   "|         Enter 2: Difficult             |\n";
+        std::cout <<   "|         Enter 3: Wall                  |\n";
+        std::cout <<   "|         Enter 4: Back                  |\n";
+        std::cout <<   "'========================================'\n";
+        std::cout <<   "|      ==>";
+        std::cin >> level;
+        if (level != 1 && level != 2 && level != 3 && level != 4)
+        {
+            std::cout << "Error: This option is not available, please re-enter!";
+        }
+        else
+        {
+            switch (level)
+            {
+                case 1: /* Easy */
+                {
+                    Game::SetGameLevel(game_level::Easy);
+                    break;
+                }
+                case 2: /* Difficult */
+                {
+                    Game::SetGameLevel(game_level::Difficult);
+                    break;
+                }
+                case 3: /* Wall */
+                {
+                    Game::Wall();
+                    break;
+                }
+                default: /* Back */
+                {
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void Menu::History()
@@ -105,41 +151,42 @@ void Menu::Run()
         {
             switch (option)
             {
-            case 1: /* Play */
-            {
-                string name;
-                user_ = std::make_unique<User>();
-                std::cout << "\n ======================================== \n";
-                std::cout <<   "|                 Add User               |\n";
-                std::cout <<   " ======================================== \n";
-                std::cout <<   "|      ==>";
-                std::cin>>name;
-                user_->SetUserName(name);
-                this->Play();
-                this->SaveUser(user_.get());
-                break;
+                case 1: /* Play */
+                {
+                    string name;
+                    user_ = std::make_unique<User>();
+                    std::cout << "\n ======================================== \n";
+                    std::cout <<   "|                 Add User               |\n";
+                    std::cout <<   " ======================================== \n";
+                    std::cout <<   "|      ==>";
+                    std::cin>>name;
+                    user_->SetUserName(name);
+                    this->Play();
+                    this->SaveUser(user_.get());
+                    break;
+                }
+                case 2: /* Game level */
+                {
+                    this->GameLevel();
+                    break;
+                }
+                case 3: /* User manual */
+                {
+                    this->UserManual();
+                    break;
+                }
+                case 4: /* History */
+                {
+                    this->History();
+                    break;
+                }
+                default: /* Exit */
+                {
+                    std::cout << "==>The program has stopped, thank you for using!\n";
+                    break;
+                }
             }
-            case 2: /* Game level */
-            {
-                this->GameLevel();
-                break;
-            }
-            case 3: /* User manual */
-            {
-                this->UserManual();
-                break;
-            }
-            case 4: /* History */
-            {
-                this->History();
-                break;
-            }
-            default: /* Exit */
-            {
-                std::cout << "==>The program has stopped, thank you for using!\n";
-                break;
-            }
-            }
+
             if (option != 5)
             {
                 std::cout << "==>Press Enter to continues...!\n";

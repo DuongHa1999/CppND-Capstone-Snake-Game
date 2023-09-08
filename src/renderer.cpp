@@ -43,7 +43,7 @@ Renderer::~Renderer()
     SDL_Quit();
 }
 
-void Renderer::Render(Snake const snake, SDL_Point const &food, bool *wall, bool *poisoned)
+void Renderer::Render(Snake const snake, SDL_Point const &food, bool *wall, bool *poison, bool *slow)
 {
     SDL_Rect block;
     block.w = screen_width / grid_width;
@@ -68,9 +68,13 @@ void Renderer::Render(Snake const snake, SDL_Point const &food, bool *wall, bool
     SDL_RenderFillRect(sdl_renderer, &block);
 
     // Render snake's body
-    if (*poisoned)
+    if (*poison)
     {
-        SDL_SetRenderDrawColor(sdl_renderer, 0xBE, 0xD3, 0x3D, 0xFF); // greenish color
+        SDL_SetRenderDrawColor(sdl_renderer, 0x80, 0xFF, 0x80, 0xFF);
+    }
+    else if (*slow)
+    {
+        SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x99, 0x00, 0xFF);
     }
     else
     {
@@ -109,6 +113,6 @@ void Renderer::UpdateWindowTitle(int score, int fps)
 
 void Renderer::SetPauseTitle()
 {
-    std::string title{"[GAME PAUSED] press ESC to resume"};
+    std::string title{"[GAME PAUSED] press Fn + Insert to resume"};
     SDL_SetWindowTitle(sdl_window, title.c_str());
 }

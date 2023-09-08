@@ -10,22 +10,32 @@
 class Game
 {
 public:
+    enum class game_level
+    {
+        Easy      = 1,
+        Difficult = 2
+    };
     Game(std::size_t grid_width, std::size_t grid_height);
     void Run(Controller const &controller, Renderer *renderer,
              std::size_t target_frame_duration);
     int GetScore() const;
     int GetSize() const;
-    void TriggerPause();
+    void Pause();
+    void Wall();
+    void SpeedUp();
+    void SpeedDown();
+    void SetGameLevel(game_level level);
     friend class Controller;
 
 protected:
-    bool _wall; // wall around the game screen
+    bool wall_; // wall around the game screen
 
 private:
     Snake snake;
     SDL_Point food;
-    bool _paused;
-    bool _poisoned;
+    bool pause_;
+    bool poison_;
+    bool slow_;
 
     std::random_device dev;
     std::mt19937 engine;
@@ -35,9 +45,8 @@ private:
     int score{0};
 
     void PlaceFood();
-    void Update(Renderer *renderer);
-    void Pause();
-    void Resume();
+    void Update(Renderer *renderer, int level);
+    game_level level_;
 };
 
 #endif

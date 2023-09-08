@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "SDL.h"
+#include <memory>
 
 class Snake
 {
@@ -17,7 +18,7 @@ public:
 
     // update constructor to get score reference from game class
     Snake(int grid_width, int grid_height, int *score)
-        : _score(score),
+        : score_(score),
           grid_width(grid_width),
           grid_height(grid_height),
           head_x(grid_width / 2),
@@ -44,7 +45,8 @@ private:
     bool growing{false};
     int grid_width;
     int grid_height;
-    int *_score;
+    // int *score_;
+    std::shared_ptr<int> score_;
 };
 
 #endif
