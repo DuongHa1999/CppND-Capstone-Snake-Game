@@ -1,7 +1,7 @@
 #include "menu.h"
 #include "data.h"
 #include "controller.h"
-#include "game.h"
+// #include "game.h"
 #include "renderer.h"
 #include "SDL.h"
 #include <vector>
@@ -16,6 +16,9 @@
 #include <iostream>
 #include <ctime>
 #include "user.h"
+
+bool level = false;
+bool wall = false;
 
 void Menu::SaveUser(User *user)
 {
@@ -40,9 +43,9 @@ void Menu::UserManual()
 
 void Menu::GameLevel()
 {
-    int level = 0;
+    int option = 0;
 
-    while (level != 4)
+    while (option != 4)
     {
         std::cout << "\033[2J\033[1;1H";
         std::cout << "\n ======================================== \n";
@@ -54,28 +57,32 @@ void Menu::GameLevel()
         std::cout <<   "|         Enter 4: Back                  |\n";
         std::cout <<   "'========================================'\n";
         std::cout <<   "|      ==>";
-        std::cin >> level;
-        if (level != 1 && level != 2 && level != 3 && level != 4)
+        std::cin >> option;
+        if (option != 1 && option != 2 && option != 3 && option != 4)
         {
             std::cout << "Error: This option is not available, please re-enter!";
         }
         else
         {
-            switch (level)
+            switch (option)
             {
                 case 1: /* Easy */
                 {
-                    Game::SetGameLevel(game_level::Easy);
+                    level = false;
+                    wall = false;
+                    std::cout << "==> Game level Easy";
                     break;
                 }
                 case 2: /* Difficult */
                 {
-                    Game::SetGameLevel(game_level::Difficult);
+                    level = true;
+                    std::cout << "==> Game level Difficult";
                     break;
                 }
                 case 3: /* Wall */
                 {
-                    Game::Wall();
+                    wall = true;
+                    std::cout << "==>: Turn on Wall";
                     break;
                 }
                 default: /* Back */
@@ -112,6 +119,15 @@ void Menu::Play()
     Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
     Controller controller;
     Game game(kGridWidth, kGridHeight);
+    if(level)
+    {
+        game.SetGameLevel(Game::game_level::Difficult);
+    }
+    else
+    {
+        game.SetGameLevel(Game::game_level::Easy);
+    }
+    game.SetWall(wall);
     game.Run(controller, &renderer, kMsPerFrame);
     std::cout << "\n ======================================== \n";
     std::cout <<   "|                Game Over               |\n";
@@ -187,7 +203,7 @@ void Menu::Run()
                 }
             }
 
-            if (option != 5)
+            if (option != 5 && option != 2)
             {
                 std::cout << "==>Press Enter to continues...!\n";
                 getchar(); /* Wait screen */

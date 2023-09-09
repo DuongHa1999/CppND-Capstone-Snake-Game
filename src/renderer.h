@@ -13,7 +13,7 @@ public:
     ~Renderer();
 
     void Render(Snake const snake, SDL_Point const &food, bool *wall, bool *poison, bool *slow);
-    void UpdateWindowTitle(int score, int fps);
+    void UpdateWindowTitle(int score, int fps, bool *wall, bool *poison, bool *slow);
     void SetPauseTitle();
 
 private:

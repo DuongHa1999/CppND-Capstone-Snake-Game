@@ -45,8 +45,7 @@ private:
     bool growing{false};
     int grid_width;
     int grid_height;
-    // int *score_;
-    std::shared_ptr<int> score_;
+    int *score_;
 };
 
 #endif

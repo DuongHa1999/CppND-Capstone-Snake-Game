@@ -2,6 +2,7 @@
 #define MENU_H
 
 #include <iostream>
+#include "game.h"
 #include "user.h"
 #include <vector>
 #include <memory>

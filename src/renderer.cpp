@@ -98,6 +98,7 @@ void Renderer::Render(Snake const snake, SDL_Point const &food, bool *wall, bool
     else
     {
         SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
+        // this->~Renderer();
     }
     SDL_RenderFillRect(sdl_renderer, &block);
 
@@ -105,9 +106,27 @@ void Renderer::Render(Snake const snake, SDL_Point const &food, bool *wall, bool
     SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps)
+void Renderer::UpdateWindowTitle(int score, int fps, bool *wall, bool *poison, bool *slow)
 {
-    std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+    std::string message = "Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps);
+    if (*poison)
+    {
+        message += " Poison";
+    }
+    if (*slow)
+    {
+        message += " Slow";
+    }
+    if (*wall)
+    {
+        message += " Wall Lev: D";
+    }
+    else
+    {
+        message += " Lev: E";
+    }
+
+    std::string title{message};
     SDL_SetWindowTitle(sdl_window, title.c_str());
 }
 

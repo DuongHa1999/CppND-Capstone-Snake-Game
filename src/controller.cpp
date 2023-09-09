@@ -61,7 +61,7 @@ void Controller::HandleInput(bool &running, Snake &snake, Game &game) const
                 break;
 
             case SDLK_END:
-                std::string msgText{"Score: " + std::to_string(*score_) + "\nSize: " + std::to_string(size)};
+                std::string msgText{"Score: " + std::to_string(game.GetScore()) + "\nSize: " + std::to_string(game.GetSize())};
                 SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", msgText.c_str(), NULL);
                 running = false;
                 break;

@@ -22,8 +22,7 @@ public:
     int GetSize() const;
     void Pause();
     void Wall();
-    void SpeedUp();
-    void SpeedDown();
+    void SetWall(bool wall);
     void SetGameLevel(game_level level);
     friend class Controller;
 
@@ -45,7 +44,7 @@ private:
     int score{0};
 
     void PlaceFood();
-    void Update(Renderer *renderer, int level);
+    void Update(Renderer *renderer);
     game_level level_;
 };
 
