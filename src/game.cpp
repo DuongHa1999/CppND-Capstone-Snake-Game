@@ -5,8 +5,6 @@
 #include <chrono>
 #include <future>
 
-float pre_speed;
-
 Game::Game(std::size_t grid_width, std::size_t grid_height)
     : snake(grid_width, grid_height, &score),
       engine(dev()),
@@ -62,7 +60,7 @@ void Game::Run(Controller const &controller, Renderer *renderer,
 
 void TimerThread(Snake *snake, bool *option, int time_s)
 {
-    pre_speed = 0.1*snake->size;
+    float pre_speed = 0.1 + 0.01*(snake->size-1);
     std::this_thread::sleep_for(std::chrono::seconds(time_s));
     *option = false;
     snake->speed = pre_speed;
@@ -97,7 +95,7 @@ void Game::Update(Renderer *renderer)
     if (!snake.alive)
     {
         return;
-        renderer->~Renderer();
+        // renderer->~Renderer();
     }
 
     snake.Update(&wall_);
@@ -117,7 +115,7 @@ void Game::Update(Renderer *renderer)
         // Grow snake and increase speed.
         snake.GrowBody();
 
-        if(score > 10 || level_ == game_level::Difficult)
+        if(score > 20 || level_ == game_level::Difficult)
         {
             wall_ = true;
             if (dis(gen) <= 2)
